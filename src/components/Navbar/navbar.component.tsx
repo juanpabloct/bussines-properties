@@ -27,6 +27,7 @@ export const Navbar = () => {
       console.log();
     }
   };
+
   return (
     <Flex className="relative">
       <header className="w-full grid grid-cols-12  border-b-2 border-solid border-b-[#80c5eb] divide-x">

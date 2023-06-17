@@ -29,13 +29,14 @@ export const routes = [
     element: LoginPage,
   },
   {
-    validToken: { redirect: home },
+    validToken: { valid: true },
     route: adminRegister,
     element: AdminRegister,
   },
   {
     route: register,
     element: RegisterForm,
+    validToken: { valid: true },
   },
   { route: error, element: Loading },
 ];

@@ -1,39 +1,23 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Flex, Input } from "../tw-component";
-import { conectBack } from "../../conection/conection";
-import { Link } from "react-router-dom";
 import { InputComponent } from "../formHome/InputComponent";
 import { InputPasword } from "../formHome/inputPassword.component";
 import { Select } from "../tw-component/select";
-import { login } from "../../common/routes";
-export const RegisterForm = ({
+import { information } from "../formHome/hooks/useNewUser";
+export const FormUser = ({
   createRol,
-  redirectLogin,
+  redirect,
+  action,
 }: {
   createRol?: boolean;
-  redirectLogin?: boolean;
+  redirect?: ReactNode;
+  action: (form: information) => Promise<void>;
 }) => {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
-  const action = async () => {
-    const values: {
-      email: string;
-      password: string;
-      userName: string;
-      rol?: string;
-    } = { email, password, userName: user };
-    if (createRol) {
-      values.rol = rol;
-    }
-    try {
-      await conectBack.post("/user", values);
-      alert("Creado Correctamente");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <div className="pt-10">
       <Flex $col>
@@ -57,12 +41,14 @@ export const RegisterForm = ({
             </Select>
           )}
           <InputPasword password={password} setPassword={setPassword} />
-          <Input type="submit" className="p-0" onClick={async () => action()} />
-          {redirectLogin && (
-            <Link className="w-full text-right text-blue-400" to={login}>
-              Login User
-            </Link>
-          )}
+          <Input
+            type="submit"
+            className="p-0"
+            onClick={async () =>
+              action({ userName: user, createRol: rol, email, password })
+            }
+          />
+          {redirect}
         </Flex>
       </Flex>
     </div>

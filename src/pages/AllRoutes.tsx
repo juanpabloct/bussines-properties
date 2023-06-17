@@ -36,7 +36,7 @@ export const Allroutes = () => {
         })
         .catch((e) => {
           console.log(e);
-          pathname !== home && navigate(login);
+          pathname !== login && navigate(login);
         });
     },
     [navigate, pathname, user, valueToken, getRole]

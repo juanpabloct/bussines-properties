@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { Icon } from "../components/mapa/Selectmarker/selectMarker.interface";
 import { SelectMarker } from "../components/mapa/Selectmarker/selectMarker.component";
 import { icons } from "../components/mapa/Selectmarker/SelectMarker.controller";
 import { Flex } from "../components/tw-component";
 import { InfoMapa } from "../components/mapa/infoMapa.component";
-const HomePage: FC = () => {
+const HomePage: FC = memo(() => {
   const [iconSelected, setIconSelected] = useState(icons()[0]);
   const changeIcon = (value: Icon) => {
     setIconSelected(value);
@@ -24,5 +24,5 @@ const HomePage: FC = () => {
       </Flex>
     </Flex>
   );
-};
+});
 export default HomePage;
