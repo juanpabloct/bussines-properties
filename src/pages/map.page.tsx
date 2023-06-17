@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
-import { Icon } from "../components/Selectmarker/selectMarker.interface";
-import { SelectMarker } from "../components/Selectmarker/selectMarker.component";
-import { icons } from "../components/Selectmarker/SelectMarker.controller";
-import { Map } from "../components/mapa/mapa.component";
+import { Icon } from "../components/mapa/Selectmarker/selectMarker.interface";
+import { SelectMarker } from "../components/mapa/Selectmarker/selectMarker.component";
+import { icons } from "../components/mapa/Selectmarker/SelectMarker.controller";
 import { Flex } from "../components/tw-component";
+import { InfoMapa } from "../components/mapa/infoMapa.component";
 const HomePage: FC = () => {
-  const [iconSelected, setIconSelected] = useState(icons[0]);
+  const [iconSelected, setIconSelected] = useState(icons()[0]);
   const changeIcon = (value: Icon) => {
     setIconSelected(value);
     return value;
@@ -17,10 +17,10 @@ const HomePage: FC = () => {
         <div className="w-1/6">
           <SelectMarker
             setIconSelected={changeIcon}
-            iconSelected={iconSelected.value}
+            iconSelected={iconSelected}
           />
         </div>
-        <Map iconSelected={iconSelected} />
+        <InfoMapa iconSelected={iconSelected} />
       </Flex>
     </Flex>
   );
