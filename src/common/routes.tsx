@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { Loading } from "../components/loading/loading";
+import { token } from "../../config";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const LoginPage = lazy(() => import("../pages/login.page"));
@@ -40,3 +41,10 @@ export const routes = [
   },
   { route: error, element: Loading },
 ];
+export const getheaders = () => {
+  return {
+    headers: {
+      Authorization: localStorage.getItem(token),
+    },
+  };
+};

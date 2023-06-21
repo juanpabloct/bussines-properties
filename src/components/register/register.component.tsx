@@ -8,10 +8,12 @@ export const FormUser = ({
   createRol,
   redirect,
   action,
+  title,
 }: {
   createRol?: boolean;
   redirect?: ReactNode;
   action: (form: information) => Promise<void>;
+  title: string;
 }) => {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
@@ -21,7 +23,7 @@ export const FormUser = ({
   return (
     <div className="pt-10">
       <Flex $col>
-        <h2 className="text-center text-2xl font-semibold">Register</h2>
+        <h2 className="text-center text-2xl font-semibold">{title}</h2>
         <Flex $col className="justify-center content-center h-3/4 gap-4">
           <InputComponent
             action={(value) => setUser(value)}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Icon } from "./Selectmarker/selectMarker.interface";
-import { userId } from "../../../config";
+import { token, userId } from "../../../config";
 import { conectBack } from "../../conection/conection";
 import {
   CreateMarketPoint,
@@ -10,29 +10,39 @@ import { ResultMarketPoint } from "../../interfaces/resultMarketPoint";
 import "leaflet/dist/leaflet.css";
 import { Mapa } from "./mapa.component";
 import { Loading } from "../loading/loading";
+import { getheaders } from "../../common/routes";
 
 export const InfoMapa = ({ iconSelected }: { iconSelected: Icon }) => {
   const [pounts, setPounts] = useState<ResultMarketPoint[]>([]);
   const [loadingPounts, setLoadingPounts] = useState(false);
   const id = localStorage.getItem(userId);
+  const tokenValue = localStorage.getItem(token);
   useEffect(() => {
     const allData = async () => {
       setLoadingPounts(true);
       try {
-        const { data } = await conectBack.get(`/marked-point/user/${id}`);
-        setPounts(data);
+        if (tokenValue) {
+          const { data } = await conectBack.get(
+            `/marked-point/user/${id}`,
+            getheaders()
+          );
+          setPounts(data);
+        }
       } catch (error) {
         console.log();
       }
       setLoadingPounts(false);
     };
     allData();
-  }, [id]);
+  }, [id, tokenValue]);
 
   const removePount = useCallback(
     async (id: number) => {
       try {
-        await conectBack.delete<CreateMarketPoint>(`/marked-point/${id}`);
+        await conectBack.delete<CreateMarketPoint>(
+          `/marked-point/${id}`,
+          getheaders()
+        );
         const copyPounts = [...pounts];
         const filterPount = copyPounts.filter((pount) => !(pount.id === id));
         setPounts(filterPount);
@@ -52,7 +62,8 @@ export const InfoMapa = ({ iconSelected }: { iconSelected: Icon }) => {
           {
             namePoint: value,
             point: { ...e },
-          }
+          },
+          getheaders()
         );
         setPounts((current) => [...current, data]);
       } catch (error) {

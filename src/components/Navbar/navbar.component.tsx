@@ -8,7 +8,7 @@ import { conectBack } from "../../conection/conection";
 import { token } from "../../../config";
 import { useContextRol } from "../../context/contextRol";
 import { Link } from "react-router-dom";
-import { adminRegister, home } from "../../common/routes";
+import { adminRegister, getheaders, home } from "../../common/routes";
 const Nav = tw.nav`h-full col-span-2 text-center flex items-center justify-center text-xl font-bold font-sans`;
 export const Navbar = () => {
   const rol = useContextRol();
@@ -16,9 +16,13 @@ export const Navbar = () => {
   const changeShowModal = () => setShowMenu((current) => !current);
   const exit = async () => {
     try {
-      const exitUser = await conectBack.post("auth/signOff", {
-        token: localStorage.getItem(token),
-      });
+      const exitUser = await conectBack.post(
+        "auth/signOff",
+        {
+          token: localStorage.getItem(token),
+        },
+        getheaders()
+      );
       if (exitUser) {
         localStorage.clear();
         location.reload();

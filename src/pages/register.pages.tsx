@@ -14,6 +14,7 @@ const RegisterPages = () => {
   return (
     <Flex className="h-full min-h-screen justify-center">
       <FormUser
+        title="Register"
         action={action}
         redirect={
           <Link className="w-full text-right text-blue-400" to={login}>

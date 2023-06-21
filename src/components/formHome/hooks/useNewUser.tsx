@@ -1,3 +1,4 @@
+import { getheaders } from "../../../common/routes";
 import { conectBack } from "../../../conection/conection";
 
 interface typesValues {
@@ -22,7 +23,7 @@ export const useNewUser = async ({
     values.rol = rol;
   }
   try {
-    await conectBack.post("/user", values);
+    await conectBack.post("/user", values, getheaders());
   } catch (error) {
     console.log(error);
     alert("Error creando el usuario");

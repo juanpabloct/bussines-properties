@@ -7,27 +7,34 @@ import {
   useState,
 } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { home, login, routes } from "../common/routes";
+import { getheaders, login, routes } from "../common/routes";
 import { token, userId } from "../../config";
 import { conectBack } from "../conection/conection";
 import { Loading } from "../components/loading/loading";
 import { Navbar } from "../components/Navbar/navbar.component";
 import { useContextRol } from "../context/contextRol";
-import { SesionResultInterface } from "../interfaces/SessionResult.interface";
+import {
+  SesionResultInterface,
+  validateSesionInterface,
+} from "../interfaces/SessionResult.interface";
 export const Allroutes = () => {
   const getRole = useContextRol();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const valueToken = localStorage.getItem(token);
   const user = localStorage.getItem(userId);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const validateToken = useCallback(
     async (redirect?: string) => {
       conectBack
-        .post<SesionResultInterface>("/auth/validate", {
-          token: valueToken,
-          idUser: user,
-        })
+        .post<validateSesionInterface>(
+          "/auth/validate",
+          {
+            token: valueToken,
+            idUser: user,
+          },
+          getheaders()
+        )
         .then((res) => {
           getRole.value = res.data.name;
           if (redirect) {

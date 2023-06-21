@@ -10,7 +10,7 @@ const RegisterAdminPages = () => {
   const action = (data: information) => newUser(data);
   return (
     <Flex className="h-full min-h-screen justify-center">
-      <FormUser createRol action={action} />
+      <FormUser createRol action={action} title="Register" />
     </Flex>
   );
 };
