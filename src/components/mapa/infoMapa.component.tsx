@@ -47,7 +47,7 @@ export const InfoMapa = ({ iconSelected }: { iconSelected: Icon }) => {
         const filterPount = copyPounts.filter((pount) => !(pount.id === id));
         setPounts(filterPount);
       } catch (error) {
-        console.log("No se pudo borrarS");
+        console.log("No se pudo borrar");
       }
     },
     [pounts]

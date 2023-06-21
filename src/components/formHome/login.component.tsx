@@ -3,7 +3,6 @@ import { SesionResultInterface } from "../../interfaces/SessionResult.interface"
 import { token, userId } from "../../../config";
 import { Link, useNavigate } from "react-router-dom";
 import { getheaders, home, register } from "../../common/routes";
-import { useContextRol } from "../../context/contextRol";
 import { FormUser } from "../register/register.component";
 import { information } from "./hooks/useNewUser";
 
